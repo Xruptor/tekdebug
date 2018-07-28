@@ -15,6 +15,9 @@ Then make a Debug function (note, this version is NOT nil-safe)
 local debugf = tekDebug and tekDebug:GetFrame("MyAddon")
 local function Debug(...) if debugf then debugf:AddMessage(string.join(", ", ...)) end end
 
+or if you just want to add a quick message in any addon for debugging
+tekDebug:GetFrame("MyAddon"):AddMessage(...)
+
 Or, if you use Dongle:
 
 MyAddon = DongleStub("Dongle-1.0"):New("MyAddon")
@@ -138,6 +141,10 @@ function tekDebug:GetFrame(name)
 		return orig(self, newtext, ...)
 	end
 
+	f.AddDebug = function(self, ...)
+		self:AddMessage(string.join(", ", tostringall(...)))
+	end
+	
 	frames[name] = f
 	table.insert(names, name)
 	table.sort(names)
