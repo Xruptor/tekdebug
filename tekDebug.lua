@@ -114,9 +114,11 @@ end)
 local function OnMouseWheel(frame, delta)
 	if delta > 0 then
 		if IsShiftKeyDown() then frame:ScrollToTop()
+		elseif IsAltKeyDown() then frame:PageUp()
 		else frame:ScrollUp() end
 	elseif delta < 0 then
 		if IsShiftKeyDown() then frame:ScrollToBottom()
+		elseif IsAltKeyDown() then frame:PageDown()
 		else frame:ScrollDown() end
 	end
 end
@@ -138,7 +140,7 @@ function tekDebug:GetFrame(name)
 	local orig = f.AddMessage
 	f.AddMessage = function(self, txt, ...)
 		local newtext = txt:gsub(name.."|r:", date("%X").."|r", 1)
-		return orig(self, newtext, ...)
+		return orig(self, "|cff808080["..date("%X").."]:|r "..newtext, ...)
 	end
 
 	f.AddDebug = function(self, ...)
