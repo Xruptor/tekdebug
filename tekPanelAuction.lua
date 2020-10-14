@@ -14,7 +14,7 @@ end
 
 
 function lib.new(name, titletext, splitstyle)
-	local frame = CreateFrame("Frame", name, UIParent)
+	local frame = CreateFrame("Frame", name, UIParent, BackdropTemplateMixin and "BackdropTemplate")
 	frame:SetToplevel(true)
 	frame:SetFrameLevel(100) -- Force frame to a high level so it shows on top the first time it's displayed
 	frame:SetWidth(832) frame:SetHeight(447)
@@ -60,7 +60,7 @@ function lib.new(name, titletext, splitstyle)
 		end
 	end
 
-	local voyeur = CreateFrame("Frame", nil, frame)
+	local voyeur = CreateFrame("Frame", nil, frame, BackdropTemplateMixin and "BackdropTemplate")
 	voyeur:SetScript("OnShow", function()
 		local vis
 		for i,panel in pairs(frame.panels) do vis = vis or panel:IsShown() end
@@ -71,7 +71,7 @@ function lib.new(name, titletext, splitstyle)
 end
 
 function lib.newpanel(base, splitstyle)
-	local frame = CreateFrame("Frame", nil, base)
+	local frame = CreateFrame("Frame", nil, base, BackdropTemplateMixin and "BackdropTemplate")
 	frame:SetAllPoints()
 	frame:Hide()
 
@@ -79,7 +79,7 @@ function lib.newpanel(base, splitstyle)
 	frame.base = base
 
 	if splitstyle then
-		local subpanel = CreateFrame("Frame", nil, frame)
+		local subpanel = CreateFrame("Frame", nil, frame, BackdropTemplateMixin and "BackdropTemplate")
 		subpanel:SetPoint("TOPLEFT", 190, -103)
 		subpanel:SetPoint("BOTTOMRIGHT", -12, 39)
 
